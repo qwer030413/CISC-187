@@ -19,14 +19,7 @@ int main()
     int *point;
     point = ARRAY;
 
-    // for(int i = 0; i < 16; i++)
-    // {
-    //     cout << *(point + i) << " ";
-    //     if(i % 4 == 0)
-    //     {
-    //         cout << endl;
-    //     }
-    // }
+  
 
 
     //input is for users input for the options
