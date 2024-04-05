@@ -17,6 +17,7 @@ class LinkedList {
             Node *next;
 
         };
+
         //declaire a Node pointer named head
         Node* head;
 
@@ -26,6 +27,18 @@ class LinkedList {
             //set heads initial value to null
             head = nullptr;
         }
+        ~LinkedList()
+        {
+            Node *temp;
+            Node *nextTemp;
+            temp = head;
+            while(head != nullptr)
+            {
+                nextTemp = temp->next;
+                delete temp;
+                temp = nextTemp;
+            }
+        } 
         //function declarations
         void appendNode(string);
         int insertNode(string, int);
