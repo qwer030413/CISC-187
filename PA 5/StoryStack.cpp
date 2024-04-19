@@ -195,36 +195,38 @@ void StoryStack::cap(){
 //write story with stack elements
 void StoryStack::story(){
     StackNode *temp = top;
+    StackNode *len = top;
+    int length = 0;
     //array of length 5 because we are going to take in 5 values
     string words[5];
     //variable to store values that are popped
     string val = "";
     //to check if we have enough elements
     bool notEnough = false;
-    //add elements to our words array while popping them from stack
-    for(int i = 0; i < 5; i++)
-    {
-        //if we dont have any more elements in the stack, it means we dont have enough elements, break out from for loop
-        if(isEmpty()){
-            notEnough = true;
-            break;
-        }
-        pop(val);
-        words[i] = val;
-        
+    //getting length of stack
+    while(len){
+        length++;
+        len = len->next;
     }
     //if we didnt have enough elements in stack, display error message
-    if(notEnough){
+    if(length < 5){
         cout << "Not enough elements in stack! \n";
         cout << "You need atleast 5 elementsi in the stack \n";
     }
-    //else, print story
     else{
+        //add elements to our words array while popping them from stack
+        for(int i = 0; i < 5; i++)
+        {
+            pop(val);
+            words[i] = val;
+            
+        }
         cout << "I was walking around with " << words[0] << " when I saw a " << words[1] 
         << ". I was so surprised that I did a " << words[2]
         << " and landed on a " << words[3] <<". I did not know that I could do that and I was "
         << words[4] << " to discover my new talent! \n";
     }
+    
     
 }
 //check if stack is empty
