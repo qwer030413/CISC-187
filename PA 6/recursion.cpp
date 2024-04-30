@@ -35,10 +35,10 @@ class StoryStack
         void push(string);
         void pop(string &);
         int counter();
-        int count(StackNode*);      //recursion
+        int count(StackNode*);      //recursion, line 195
         void display();
         void DrawWinner();
-        void locate(StackNode*, int);       //recursion
+        void locate(StackNode*, int);       //recursion, line 219
         bool isEmpty();
 
 };
@@ -83,7 +83,7 @@ int main(){
         //switch statement
         switch (input)
         {
-            //push word into stack
+            //push word into queue
             case 1:{
                 string newWord;
                 cout << "Enter word: ";
@@ -93,22 +93,22 @@ int main(){
                 
                 break;
             }
-            //pop word from stack
+            //pop word from queue
             case 2:{
                 stack.pop(popped);
                 break;
             }
-            //print out stack elements
+            //print out how many people are in line
             case 3:{
                 cout << "Number of people in line: "<<stack.counter() << endl;
                 break;
             }
-            //print out stack elements
+            //print out queue elements
             case 4:{
                 stack.DrawWinner();
                 break;
             }
-            //write a story with the stack elements
+            //display the people in line
             case 5:{
                 cout << "Stack: \n";
                 stack.display();
@@ -154,12 +154,12 @@ void StoryStack::push(string word){
     }
     
     else{
-        //if stack is empty, push the new node by setting the top equal to the newNode
+        //if queue is empty, push the new node by setting the top equal to the newNode
         if(isEmpty()){
             top = newNode;
             newNode ->next = nullptr;
         }
-        //if there are elements in stack, push the new node into the stack
+        //if there are elements in queue, push the new node into the queue
         else{
             StackNode *temp = top;
             while(temp->next){
@@ -171,12 +171,12 @@ void StoryStack::push(string word){
     
 }
 
-//popping stacks
+//popping queues
 void StoryStack::pop(string &word){
     //temporary pointer
     StackNode *temp = nullptr;
     
-    //if stack is empty display error message
+    //if queue is empty display error message
     if(isEmpty()){
         cout << "Line is empty \n";
     }
@@ -190,18 +190,24 @@ void StoryStack::pop(string &word){
         
     }
 }
+
+//counting helper method that uses recursion to count the number of people
 int StoryStack::count(StackNode *temp){
+    //static variable for counter
     static int i = 0;
     i++;
+    //if queue is empty, return 0 people
     if(isEmpty()){
         return 0;
     }
+    //if we are at the end of queue, return i
     if (temp ->next == nullptr){
         return i;
 
     }
     return count(temp->next);
 }
+//returns the count function
 int StoryStack::counter(){
     
     return count(top);
@@ -209,12 +215,14 @@ int StoryStack::counter(){
 
 
 
-
+//helper function that uses recurison to locate the winner
 void StoryStack::locate(StackNode *temp, int winner){
+    //if the person does not exist, let the user know
     if(temp == nullptr){
         cout << "Person with raffle " <<winner << " does not exist! " << endl;
         return;
     }
+    //if person exists:
     if(temp->ticket == winner)
     {
         int choice = 0;
@@ -234,18 +242,19 @@ void StoryStack::locate(StackNode *temp, int winner){
         }
         return;
     }
-    else{
-        locate(temp->next, winner);
-    }
+    //input the next node so that we could iterate through the queue with recursion
+    locate(temp->next, winner);
+    
     
 }
+//picks a random number from the previously assigned raffles 
 void StoryStack::DrawWinner(){
     srand(time(0));
     int winner = rand()%raffle + 1;
     locate(top,winner);
     
 }
-//check if stack is empty
+//check if queue is empty
 bool StoryStack::isEmpty()
 {
     //if top is nullptr, return true
@@ -255,7 +264,7 @@ bool StoryStack::isEmpty()
     //else return false
     return false;
 }
-//display all elements in stack
+//display all elements in queue
 void StoryStack::display(){
     StackNode *temp = top;
     int index = 0;
